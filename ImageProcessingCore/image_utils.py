@@ -12,14 +12,6 @@ def save_image(imagearray, path):
     Image.fromarray(imagearray).save(path)
 
 
-def process_image(src_path, dst_path, action):
-    source = open_image(src_path) if src_path is not None else get_example()
-    result = action(source)
-    if dst_path is None:
-        show(result)
-    else:
-        save_image(result, dst_path)
-
 def get_example():
     return scipy.misc.face()
 
@@ -37,6 +29,13 @@ def with_normalised(image, action):
         return (action(image / 255.0) * 255.0).astype(np.uint8)
     else:
         return action(image)
+
+
+def compute_grey_hist(grey_image):
+    hist = np.zeros(shape=256, dtype=np.int32)
+    for pixel in np.nditer(grey_image):
+        hist[pixel] += 1
+    return hist
 
 
 def get_integral_image(image):

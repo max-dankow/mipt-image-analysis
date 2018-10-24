@@ -2,16 +2,13 @@ from __future__ import print_function
 from sys import argv
 import os.path
 
-import image_utils
-import image_processing as imagic
+from ImageProcessingCore.ImageProcessing import open_image_from
 
 
 def box_flter(src_path, dst_path, w, h):
-    image_utils.process_image(
-        src_path,
-        dst_path,
-        lambda image: imagic.box_filter(image, w, h)
-    )
+    open_image_from(src_path) \
+        .box_filter(w, h) \
+        .save_to(dst_path)
 
 
 if __name__ == '__main__':

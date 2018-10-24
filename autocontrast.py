@@ -2,15 +2,13 @@ from __future__ import print_function
 from sys import argv
 import os.path
 
-import image_utils
-import image_processing as imagic
+from ImageProcessingCore.ImageProcessing import open_image_from
+
 
 def autocontrast(src_path, dst_path, white_perc, black_perc):
-    image_utils.process_image(
-        src_path,
-        dst_path,
-        lambda image: imagic.autocontrast(image, white_perc, black_perc)
-    )
+    open_image_from(src_path) \
+        .autocontrast(white_perc, black_perc) \
+        .save_to(dst_path)
 
 
 if __name__ == '__main__':

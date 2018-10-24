@@ -5,16 +5,14 @@ import os.path
 from ImageProcessingCore.ImageProcessing import open_image_from
 
 
-def gamma_correction(src_path, dst_path, a, b):
+def otsu(src_path, dst_path):
     open_image_from(src_path) \
-        .gamma_correction(a, b) \
+        .convert_to_greyscaled() \
+        .binarize_greyscaled_with_otsu() \
         .save_to(dst_path)
 
 
 if __name__ == '__main__':
-    assert len(argv) == 5
+    assert len(argv) == 3
     assert os.path.exists(argv[1])
-    argv[3] = float(argv[3])
-    argv[4] = float(argv[4])
-
-    gamma_correction(*argv[1:])
+    otsu(*argv[1:])
